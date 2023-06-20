@@ -125,7 +125,9 @@ Class {
 		'tParameterConcretisation',
 		'tParametricEntity',
 		'tConcreteParameterType',
-		'tGenericParameterType'
+		'tGenericParameterType',
+		'tWithInheritancesParametric',
+		'tInheritanceParametric'
 	],
 	#category : #'Famix-MetamodelGeneration'
 }
@@ -1086,10 +1088,16 @@ FamixGenerator >> defineHierarchy [
 
 	tConcretisation --|> tAssociation .
 	tParameterConcretisation --|> tAssociation .
+	
 	tConcreteParameterType  --|> tType .
 	tGenericParameterType --|> tType.
-	tConcreteParameterType --|> tTypedEntity.
-	tGenericParameterType --|> tTypedEntity.
+	
+	tConcreteParameterType --|> tWithInheritancesParametric .
+	tGenericParameterType --|> tWithInheritancesParametric .
+	
+	
+	tInheritanceParametric --|> tAssociation .
+	"tInheritance --|> tAssociation ."
 ]
 
 { #category : #definition }
@@ -1494,52 +1502,48 @@ FamixGenerator >> defineRelations [
 	((tImplementable property: #implementations)
 			comment: 'Implementation relationships.').
 			
-	(tConcretisation property:#parameterConcretisation)
-	*-
-	(tParameterConcretisation property:#concretisation).
+			
 
-	"((tConcretisation property:#concreteEntity)source)
-	*-
-	(tConcreteEntity property:#genericEntities).
-	
-	((tConcretisation property:#genericEntity)target)
-	*-
-	(tConcreteEntity  property:#concretisation)."
+			
+	(tConcretisation property:#parameterConcretisation)
+	*-*
+	(tParameterConcretisation property:#concretisation).
 	
 	(tGenericParameterType property:#genericEntity)
 	*-*
 	(tParametricEntity property:#genericParameter).
 	
-	
 	(tConcreteParameterType  property:#concreteEntity)
 	*-*
 	(tParametricEntity property:#concreteParameter).
 	
+	((tParameterConcretisation property:#genericParam)source)*-
+	((tGenericParameterType property:#concretisation)).
 	
-	"((tParameterConcretisation property:#concreteType)source)
-	*-
-	(tConcreteParameterType property:#genericParameter).
-	
-	((tParameterConcretisation property:#genericType)target)
-	*-
-	(tGenericParameterType property:#parameterConcretisation)."
-	
-	((tGenericParameterType property:#concretisation)source)
-		*-
-	((tParameterConcretisation property:#genericParam)).
-	
-	((tConcreteParameterType  property:#generic)target)
-		*-
-	((tParameterConcretisation property:#concreteParam)).
+	((tParameterConcretisation property:#concreteParam)target)*-
+	((tConcreteParameterType  property:#generic)).
 
-	
-	((tParametricEntity  property: #concretisation)source)
-		*-
-	((tConcretisation property: #genericEntity)).
+	((tConcretisation property: #genericEntity)source)*-
+	((tParametricEntity property: #concretisation)).
 
-	((tParametricEntity  property: #genericEntities)target)
+	((tConcretisation property: #concreteEntity)target)*-
+	((tParametricEntity property: #genericEntities)). 
+	
+	((tInheritanceParametric property: #subparam)source)
 		*-
-	((tConcretisation  property: #concreteEntity)).
+	((tWithInheritancesParametric property: #superInheritance)).
+
+	((tInheritanceParametric property: #superparam)target)
+		*-
+	((tWithInheritancesParametric property: #subInheritance)).
+	
+	"((tInheritance property: #subparam)source)
+		*-
+	((tWithInheritancesParametric property: #superInheritance)).
+
+	((tInheritance property: #superparam)target)
+		*-
+	((tWithInheritancesParametric property: #subInheritance))."
 ]
 
 { #category : #definition }
@@ -1897,11 +1901,17 @@ FamixGenerator >> defineTraits [
 		                  comment: self commentForTCanImplement.
 	tImplementation := builder newTraitNamed: #TImplementation. 
 		
-	tConcretisation  := builder newTraitNamed: #TConcretisation.
+
 	tParameterConcretisation  := builder newTraitNamed: #TParameterConcretisation.
 	tParametricEntity := builder newTraitNamed: #TParametricEntity
 								comment: self commentForTConcreteEntity.
 	tConcreteParameterType  := builder newTraitNamed: #TConcreteParameterType.
 	tGenericParameterType  := builder newTraitNamed: #TGenericParameterType.
+	tWithInheritancesParametric := builder newTraitNamed: #TWithInheritancesParametric.
+	
+	tConcretisation  := builder newTraitNamed: #TConcretisation.
+	tInheritanceParametric := builder newTraitNamed: #TInheritanceParametric.
+
+
 
 ]

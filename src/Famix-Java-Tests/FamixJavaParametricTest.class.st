@@ -1,5 +1,5 @@
 Class {
-	#name : #FamixJavaParameterizedClassTest,
+	#name : #FamixJavaParametricTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'parametricClass1'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> setUp [
+FamixJavaParametricTest >> setUp [
 	super setUp.
 	
 	parametricClass1 := FamixJavaParametricClass named:'ParametricClass1'
@@ -16,7 +16,7 @@ FamixJavaParameterizedClassTest >> setUp [
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testConcreteAndGenericParameter [
+FamixJavaParametricTest >> testConcreteAndGenericParameter [
 
 |  parameter1 parameter2 |
 parameter1 := FamixJavaType named:'String'.
@@ -31,7 +31,7 @@ self assertCollection: (parametricClass1  genericParameter  )
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testConcreteParameter [
+FamixJavaParametricTest >> testConcreteParameter [
 
 |  parameter1 parameter2 |
 parameter1 := FamixJavaType named:'String'.
@@ -44,29 +44,29 @@ self assertCollection: (parametricClass1  concreteParameter  )
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testConcretisationEntity [
+FamixJavaParametricTest >> testConcretisationEntity [
 
 | listT listString |
 listT := FamixJavaParametricClass named: 'ListT'.
 listString := FamixJavaParametricClass named: 'ListString'.
-listT concretisation: (FamixJavaConcretisation new concreteEntity: {listString} ; genericEntity: {listT} ).
-self assertCollection: (listT concretisation concreteEntity  )
+FamixJavaConcretisation new concreteEntity: listString ; genericEntity: listT .
+self assertCollection: (listT concretisation collect:#concreteEntity  )
 		hasSameElements: { listString }
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testConcretisationParameter [
+FamixJavaParametricTest >> testConcretisationParameter [
 
 | parameterConcrete parameterGeneric |
 parameterConcrete := FamixJavaType named:'parametric'.
 parameterGeneric := FamixJavaParameterType named:'generic1'.
-parameterGeneric concretisation:   (FamixJavaParameterConcretisation  new concreteParam: {parameterConcrete}; genericParam: {parameterGeneric} ).
+FamixJavaParameterConcretisation  new concreteParam: parameterConcrete; genericParam: parameterGeneric.
 
-self assertCollection: (parameterGeneric concretisation concreteParam ) hasSameElements:{parameterConcrete } 
+self assertCollection: (parameterGeneric concretisation collect:#concreteParam ) hasSameElements:{parameterConcrete } 
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testGenericParameter [
+FamixJavaParametricTest >> testGenericParameter [
 
 |  parameter1 parameter2 |
 parameter1 := FamixJavaParameterType named:'K'.
@@ -79,7 +79,7 @@ self assertCollection: (parametricClass1  genericParameter  )
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testInheritance [
+FamixJavaParametricTest >> testInheritance [
 
 | class1 class2 |
 
@@ -98,7 +98,7 @@ self assertCollection: (parametricClass1  subclassHierarchy )
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testIsConcreteEntity [
+FamixJavaParametricTest >> testIsConcreteEntity [
 
 |  parameter1 parameter2 |
 parameter1 := FamixJavaType named:'String'.
@@ -112,15 +112,20 @@ self deny: parametricClass1 isConcreteEntity .
 ]
 
 { #category : #running }
-FamixJavaParameterizedClassTest >> testIsGenericEnity [
+FamixJavaParametricTest >> testIsGenericEnity [
 
-|  parameter1 parameter2 |
-parameter1 := FamixJavaType named:'String'.
-parameter2 := FamixJavaParameterType  named:'V'.
-self deny: parametricClass1 isGenericEntity .
-parametricClass1  concreteParameter: { parameter1 }.
-self deny: parametricClass1 isGenericEntity .
-parametricClass1  genericParameter:  { parameter2  }.
-self assert: parametricClass1 isGenericEntity .
+|  genericParameter1 genericParameter2 concreteParameter |
+"concreteParameter --|> genericParameter2 --|> genericParameter1"
+concreteParameter := FamixJavaType named:'String'.
+genericParameter1 := FamixJavaParameterType  named:'1'.
+genericParameter2 := FamixJavaParameterType  named:'2'.
+
+FamixJavaInheritanceParametric new subparam:  genericParameter2 ; superparam: genericParameter1 .
+FamixJavaInheritanceParametric new subparam:  concreteParameter ; superparam: genericParameter2 .
+
+self assertCollection: (genericParameter1 subInheritance collect:#subparam) hasSameElements: { genericParameter2 }.
+self assertCollection: (genericParameter2 subInheritance collect:#subparam) hasSameElements: { concreteParameter }.
+self assertCollection: (genericParameter2 superInheritance collect:#superparam) hasSameElements: { genericParameter1 }.
+self assertCollection: (concreteParameter superInheritance collect:#superparam) hasSameElements: { genericParameter2 }.
 
 ]

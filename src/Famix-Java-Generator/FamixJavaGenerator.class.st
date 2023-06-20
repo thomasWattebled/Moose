@@ -41,7 +41,8 @@ Class {
 		'parametricMethod',
 		'parametricInterface',
 		'concretisation',
-		'parameterConcretisation'
+		'parameterConcretisation',
+		'inheritanceParametric'
 	],
 	#classInstVars : [
 		'builder'
@@ -154,8 +155,12 @@ FamixJavaGenerator >> defineClasses [
 	parametricClass   := builder newClassNamed: #ParametricClass.
 	parametricMethod  := builder newClassNamed: #ParametricMethod.
 	parametricInterface := builder newClassNamed: #ParametricInterface.
-	concretisation := builder newClassNamed: #Concretisation.
 	parameterConcretisation := builder newClassNamed: #ParameterConcretisation.
+	
+	concretisation := builder newClassNamed: #Concretisation.
+	inheritanceParametric := builder newClassNamed: #InheritanceParametric.
+	
+	
 	self defineComments
 ]
 
@@ -329,7 +334,6 @@ FamixJavaGenerator >> defineHierarchy [
 	reference --|> #TReference.
 
 	type --|> containerEntity.
-	type --|> #TType.
 	type --|> #TWithMethods.
 
 	unknownVariable --|> namedEntity.
@@ -347,11 +351,16 @@ FamixJavaGenerator >> defineHierarchy [
 	parametricInterface --|> #TParametricEntity.
 	
 	parameterType --|> #TGenericParameterType.
+	"parameterType --|> #TTypedEntity ."
 	
 	type --|> #TConcreteParameterType.
 	
 	concretisation --|> #TConcretisation.
-	parameterConcretisation --|> #TParameterConcretisation
+	
+	parameterConcretisation --|> #TParameterConcretisation.
+	
+	inheritance --|> #TInheritance.
+	inheritanceParametric --|> #TInheritanceParametric.
 ]
 
 { #category : #definition }

@@ -135,6 +135,13 @@ FamixJavaImportingContext >> importInheritance [
 ]
 
 { #category : #importing }
+FamixJavaImportingContext >> importInheritanceParametric [
+
+	<generated>
+	^ self importAssociation: (self class fm3ClassNamed: #InheritanceParametric)
+]
+
+{ #category : #importing }
 FamixJavaImportingContext >> importInterface [
 
 	<generated>
@@ -384,6 +391,13 @@ FamixJavaImportingContext >> shouldImportInheritance [
 
 	<generated>
 	^ self shouldImport: #Inheritance
+]
+
+{ #category : #testing }
+FamixJavaImportingContext >> shouldImportInheritanceParametric [
+
+	<generated>
+	^ self shouldImport: #InheritanceParametric
 ]
 
 { #category : #testing }

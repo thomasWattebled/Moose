@@ -14,17 +14,3 @@ FamixJavaParametricClass class >> annotation [
 	<generated>
 	^ self
 ]
-
-{ #category : #accessing }
-FamixJavaParametricClass >> isConcreteEntity [
-
-	self genericParameter ifNotEmpty: [ ^ false ] 
-	ifEmpty: [^ true].
-]
-
-{ #category : #accessing }
-FamixJavaParametricClass >> isGenericEntity [
-
-	self genericParameter ifNotEmpty: [ ^ true ] 
-	ifEmpty: [^ false].
-]
