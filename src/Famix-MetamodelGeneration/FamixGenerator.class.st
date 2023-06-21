@@ -127,7 +127,7 @@ Class {
 		'tConcreteParameterType',
 		'tGenericParameterType',
 		'tWithInheritancesParametric',
-		'tInheritanceParametric'
+		'tParametricInheritance'
 	],
 	#category : #'Famix-MetamodelGeneration'
 }
@@ -1096,7 +1096,7 @@ FamixGenerator >> defineHierarchy [
 	tGenericParameterType --|> tWithInheritancesParametric .
 	
 	
-	tInheritanceParametric --|> tAssociation .
+	tParametricInheritance --|> tAssociation .
 	"tInheritance --|> tAssociation ."
 ]
 
@@ -1511,29 +1511,29 @@ FamixGenerator >> defineRelations [
 	
 	(tGenericParameterType property:#genericEntity)
 	*-*
-	(tParametricEntity property:#genericParameter).
+	(tParametricEntity property:#genericParameters).
 	
 	(tConcreteParameterType  property:#concreteEntity)
 	*-*
-	(tParametricEntity property:#concreteParameter).
+	(tParametricEntity property:#concreteParameters).
 	
 	((tParameterConcretisation property:#genericParam)source)*-
-	((tGenericParameterType property:#concretisation)).
+	((tGenericParameterType property:#concretisations)).
 	
 	((tParameterConcretisation property:#concreteParam)target)*-
 	((tConcreteParameterType  property:#generic)).
 
 	((tConcretisation property: #genericEntity)source)*-
-	((tParametricEntity property: #concretisation)).
+	((tParametricEntity property: #concretisations)).
 
 	((tConcretisation property: #concreteEntity)target)*-
 	((tParametricEntity property: #genericEntities)). 
 	
-	((tInheritanceParametric property: #subparam)source)
+	((tParametricInheritance property: #subparam)source)
 		*-
 	((tWithInheritancesParametric property: #superInheritance)).
 
-	((tInheritanceParametric property: #superparam)target)
+	((tParametricInheritance property: #superparam)target)
 		*-
 	((tWithInheritancesParametric property: #subInheritance)).
 	
@@ -1910,7 +1910,7 @@ FamixGenerator >> defineTraits [
 	tWithInheritancesParametric := builder newTraitNamed: #TWithInheritancesParametric.
 	
 	tConcretisation  := builder newTraitNamed: #TConcretisation.
-	tInheritanceParametric := builder newTraitNamed: #TInheritanceParametric.
+	tParametricInheritance := builder newTraitNamed: #TParametricInheritance.
 
 
 

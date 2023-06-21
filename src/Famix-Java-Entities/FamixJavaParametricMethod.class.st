@@ -14,3 +14,12 @@ FamixJavaParametricMethod class >> annotation [
 	<generated>
 	^ self
 ]
+
+{ #category : #accessing }
+FamixJavaParametricMethod >> allParameter [ 
+
+	"|collection|
+	collection := OrderedCollection new.
+	collection addAll: self concreteParameter , self genericParameter, self parameters .
+	^ collection ."
+]

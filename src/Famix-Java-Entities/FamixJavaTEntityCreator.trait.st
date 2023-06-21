@@ -185,13 +185,6 @@ FamixJavaTEntityCreator >> newInheritance [
 ]
 
 { #category : #'entity creation' }
-FamixJavaTEntityCreator >> newInheritanceParametric [
-
-	<generated>
-	^ self add: FamixJavaInheritanceParametric new
-]
-
-{ #category : #'entity creation' }
 FamixJavaTEntityCreator >> newInterface [
 
 	<generated>
@@ -294,6 +287,13 @@ FamixJavaTEntityCreator >> newParametricClass [
 
 	<generated>
 	^ self add: FamixJavaParametricClass new
+]
+
+{ #category : #'entity creation' }
+FamixJavaTEntityCreator >> newParametricInheritance [
+
+	<generated>
+	^ self add: FamixJavaParametricInheritance new
 ]
 
 { #category : #'entity creation' }
