@@ -142,21 +142,20 @@ FamixTypeBlueprint >> famixType: aFamixType [
 
 { #category : #building }
 FamixTypeBlueprint >> layersEntities [
-	^ {('Initializers'
-		-> (famixType methods select: [ :method | method isInitializer ])).
-	('Interface methods'
-		->
-			(famixType methods
-				select: [ :each | 
-					each isInternalImplementation not & each isInitializer not
-						& each isPureAccessor not ])).
-	('Implementation methods'
-		->
-			(famixType methods
-				select: [ :method | method isInternalImplementation ])).
-	('Accessors'
-		-> (famixType methods select: [ :method | method isPureAccessor ])).
-	('Attributes' -> famixType attributes)} asOrderedDictionary
+
+	^ { 
+		  ('Initializers'
+		   -> (famixType methods select: [ :method | method isInitializer ])).
+		  ('Interface methods' -> (famixType methods select: [ :each | 
+			    each isInternalImplementation not & each isInitializer not
+			    & each isPureAccessor not ])).
+		  ('Implementation methods'
+		   -> (famixType methods select: [ :method | 
+				    method isInternalImplementation ])).
+		  ('Accessors'
+		   ->
+		   (famixType methods select: [ :method | method isPureAccessor ])).
+		  ('Attributes' -> famixType entityAttributes) } asOrderedDictionary
 ]
 
 { #category : #building }

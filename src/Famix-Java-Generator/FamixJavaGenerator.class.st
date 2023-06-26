@@ -360,7 +360,9 @@ FamixJavaGenerator >> defineHierarchy [
 	parameterConcretisation --|> #TParameterConcretisation.
 	
 	inheritance --|> #TInheritance.
-	parametricInheritance --|> #TParametricInheritance.
+	"parametricInheritance --|> #TParametricInheritance."
+	type --|> #TWithInheritances
+	"parameterType --|> #TWithInheritances"
 ]
 
 { #category : #definition }

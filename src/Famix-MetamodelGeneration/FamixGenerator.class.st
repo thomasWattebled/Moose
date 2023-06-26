@@ -1096,8 +1096,7 @@ FamixGenerator >> defineHierarchy [
 	tGenericParameterType --|> tWithInheritancesParametric .
 	
 	
-	tParametricInheritance --|> tAssociation .
-	"tInheritance --|> tAssociation ."
+	"tParametricInheritance --|> tAssociation ."
 ]
 
 { #category : #definition }
@@ -1517,10 +1516,10 @@ FamixGenerator >> defineRelations [
 	*-*
 	(tParametricEntity property:#concreteParameters).
 	
-	((tParameterConcretisation property:#genericParam)source)*-
+	((tParameterConcretisation property:#genericParameters)source)*-
 	((tGenericParameterType property:#concretisations)).
 	
-	((tParameterConcretisation property:#concreteParam)target)*-
+	((tParameterConcretisation property:#concreteParameters)target)*-
 	((tConcreteParameterType  property:#generic)).
 
 	((tConcretisation property: #genericEntity)source)*-
@@ -1529,21 +1528,6 @@ FamixGenerator >> defineRelations [
 	((tConcretisation property: #concreteEntity)target)*-
 	((tParametricEntity property: #genericEntities)). 
 	
-	((tParametricInheritance property: #subparam)source)
-		*-
-	((tWithInheritancesParametric property: #superInheritance)).
-
-	((tParametricInheritance property: #superparam)target)
-		*-
-	((tWithInheritancesParametric property: #subInheritance)).
-	
-	"((tInheritance property: #subparam)source)
-		*-
-	((tWithInheritancesParametric property: #superInheritance)).
-
-	((tInheritance property: #superparam)target)
-		*-
-	((tWithInheritancesParametric property: #subInheritance))."
 ]
 
 { #category : #definition }

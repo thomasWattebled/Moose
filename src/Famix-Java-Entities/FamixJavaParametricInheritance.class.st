@@ -1,8 +1,6 @@
 Class {
 	#name : #FamixJavaParametricInheritance,
 	#superclass : #FamixJavaEntity,
-	#traits : 'FamixTParametricInheritance',
-	#classTraits : 'FamixTParametricInheritance classTrait',
 	#category : #'Famix-Java-Entities-Entities'
 }
 

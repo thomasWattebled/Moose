@@ -208,7 +208,7 @@ FamixJavaImportingContext >> importParametricClass [
 FamixJavaImportingContext >> importParametricInheritance [
 
 	<generated>
-	^ self importAssociation: (self class fm3ClassNamed: #ParametricInheritance)
+	^ self importConcreteEntity: (self class fm3ClassNamed: #ParametricInheritance)
 ]
 
 { #category : #importing }
