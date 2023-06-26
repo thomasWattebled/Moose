@@ -125,9 +125,7 @@ Class {
 		'tParameterConcretisation',
 		'tParametricEntity',
 		'tConcreteParameterType',
-		'tGenericParameterType',
-		'tWithInheritancesParametric',
-		'tParametricInheritance'
+		'tGenericParameterType'
 	],
 	#category : #'Famix-MetamodelGeneration'
 }
@@ -1091,12 +1089,6 @@ FamixGenerator >> defineHierarchy [
 	
 	tConcreteParameterType  --|> tType .
 	tGenericParameterType --|> tType.
-	
-	tConcreteParameterType --|> tWithInheritancesParametric .
-	tGenericParameterType --|> tWithInheritancesParametric .
-	
-	
-	"tParametricInheritance --|> tAssociation ."
 ]
 
 { #category : #definition }
@@ -1891,10 +1883,8 @@ FamixGenerator >> defineTraits [
 								comment: self commentForTConcreteEntity.
 	tConcreteParameterType  := builder newTraitNamed: #TConcreteParameterType.
 	tGenericParameterType  := builder newTraitNamed: #TGenericParameterType.
-	tWithInheritancesParametric := builder newTraitNamed: #TWithInheritancesParametric.
 	
 	tConcretisation  := builder newTraitNamed: #TConcretisation.
-	tParametricInheritance := builder newTraitNamed: #TParametricInheritance.
 
 
 
