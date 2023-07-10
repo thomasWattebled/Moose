@@ -69,7 +69,7 @@ classA genericParameters: { k.v }.
 classAbis := FamixJavaParametricClass named:'ClassA'.
 FamixJavaConcretisation new concreteEntity: classAbis ; genericEntity: classA.
 string :=FamixJavaType named:'string'.
-FamixJavaParameterConcretisation new concreteParameters: string ; genericParameters: k.
+FamixJavaParameterConcretisation new concreteParameter: string ; genericParameter: k.
 
 method := FamixJavaParametricMethod named:'method'.
 num := FamixJavaParameter named:'num'.
@@ -117,9 +117,9 @@ FamixJavaParametricTest >> testConcretisationParameter [
 | parameterConcrete parameterGeneric |
 parameterConcrete := FamixJavaType named:'parametric'.
 parameterGeneric := FamixJavaParameterType named:'Generic'.
-FamixJavaParameterConcretisation  new concreteParameters: parameterConcrete; genericParameters: parameterGeneric.
+FamixJavaParameterConcretisation  new concreteParameter: parameterConcrete; genericParameter: parameterGeneric.
 
-self assertCollection: (parameterGeneric concretisations collect:#concreteParameters ) hasSameElements:{parameterConcrete } 
+self assertCollection: (parameterGeneric concretisations collect:#concreteParameter ) hasSameElements:{parameterConcrete } 
 ]
 
 { #category : #running }
@@ -148,7 +148,7 @@ FamixJavaParametricTest >> testInheritanceParameter [
 | supGeneric subGeneric subConcrete |
 supGeneric :=FamixJavaParameterType named:'supGeneric'. 
 subGeneric := FamixJavaParameterType named:'subGeneric'.
-subConcrete := FamixJavaType named:'subConcrete'.
+subConcrete := FamixJavaClass named:'String'.
 
 FamixJavaInheritance new subclass:  subGeneric ; superclass: supGeneric .
 self assertCollection: (supGeneric subInheritances collect:#subclass) hasSameElements: { subGeneric  }  .
@@ -163,11 +163,11 @@ FamixJavaParametricTest >> testIsConcreteEntity [
 | parameter1 parameter2 |
 parameter1 := FamixJavaType named:'String'.
 parameter2 := FamixJavaParameterType  named:'V'.
-self assert: parametricClass1 isConcreteEntity  .
+self assert: parametricClass1 isConcreteEntity.
 parametricClass1  concreteParameters: { parameter1 }.
-self assert: parametricClass1 isConcreteEntity .
+self assert: parametricClass1 isConcreteEntity.
 parametricClass1  genericParameters:  { parameter2  }.
-self deny: parametricClass1 isConcreteEntity .
+self deny: parametricClass1 isConcreteEntity.
 
 ]
 

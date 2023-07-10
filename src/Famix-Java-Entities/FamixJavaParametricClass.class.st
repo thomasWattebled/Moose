@@ -15,7 +15,7 @@ FamixJavaParametricClass class >> annotation [
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 FamixJavaParametricClass >> allParameter [ 
 
 	|collection|

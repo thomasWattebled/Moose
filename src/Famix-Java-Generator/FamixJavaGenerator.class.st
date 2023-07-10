@@ -9,6 +9,7 @@ Class {
 		'annotationTypeAttribute',
 		'attribute',
 		'class',
+		'concretisation',
 		'containerEntity',
 		'enum',
 		'enumValue',
@@ -20,12 +21,15 @@ Class {
 		'method',
 		'package',
 		'parameter',
+		'parameterConcretisation',
 		'parameterType',
+		'parametricClass',
+		'parametricInterface',
+		'parametricMethod',
 		'primitiveType',
 		'reference',
 		'type',
 		'unknownVariable',
-		'parameterizedType',
 		'indexedFileAnchor',
 		'tCanBeVolatile',
 		'tCanBeTransient',
@@ -36,13 +40,7 @@ Class {
 		'tImplementable',
 		'tCanImplement',
 		'tWithInterfaces',
-		'import',
-		'parametricClass',
-		'parametricMethod',
-		'parametricInterface',
-		'concretisation',
-		'parameterConcretisation',
-		'parametricInheritance'
+		'import'
 	],
 	#classInstVars : [
 		'builder'
@@ -144,7 +142,6 @@ FamixJavaGenerator >> defineClasses [
 	package := builder newClassNamed: #Package.
 	parameter := builder newClassNamed: #Parameter.
 	parameterType := builder newClassNamed: #ParameterType.
-	parameterizedType := builder newClassNamed: #ParameterizedType.
 	primitiveType := builder newClassNamed: #PrimitiveType.
 	reference := builder newClassNamed: #Reference.
 	type := builder newClassNamed: #Type.
@@ -158,7 +155,6 @@ FamixJavaGenerator >> defineClasses [
 	parameterConcretisation := builder newClassNamed: #ParameterConcretisation.
 	
 	concretisation := builder newClassNamed: #Concretisation.
-	parametricInheritance := builder newClassNamed: #ParametricInheritance.
 	
 	
 	self defineComments
@@ -323,11 +319,6 @@ FamixJavaGenerator >> defineHierarchy [
 
 	parameterType --|> type.
 
-	parameterizedType --|> type.
-	parameterizedType --|> #TWithInheritances.
-	parameterizedType --|> #TCanImplement.
-	parameterizedType --|> #TImplementable.
-
 	primitiveType --|> type.
 	primitiveType --|> #TPrimitiveType.
 
@@ -360,9 +351,7 @@ FamixJavaGenerator >> defineHierarchy [
 	parameterConcretisation --|> #TParameterConcretisation.
 	
 	inheritance --|> #TInheritance.
-	"parametricInheritance --|> #TParametricInheritance."
-	type --|> #TWithInheritances
-	"parameterType --|> #TWithInheritances"
+	parameterType --|> #TWithInheritances
 ]
 
 { #category : #definition }

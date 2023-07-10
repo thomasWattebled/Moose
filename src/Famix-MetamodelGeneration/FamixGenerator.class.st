@@ -298,12 +298,6 @@ FamixGenerator >> commentForTCompilationUnit [
 ]
 
 { #category : #comments }
-FamixGenerator >> commentForTConcreteEntity [
-
-	^ 'A Concrete entity is concrete when they don t have genericParameter and a concrete Entity is generic when they have at least one generic parameter'
-]
-
-{ #category : #comments }
 FamixGenerator >> commentForTDeclaredException [
 
 	^ 'This is an exception explicitly declared as being thrown by a method.'
@@ -1508,17 +1502,17 @@ FamixGenerator >> defineRelations [
 	*-*
 	(tParametricEntity property:#concreteParameters).
 	
-	((tParameterConcretisation property:#genericParameters)source)*-
+	((tParameterConcretisation property:#genericParameter)source)*-
 	((tGenericParameterType property:#concretisations)).
 	
-	((tParameterConcretisation property:#concreteParameters)target)*-
+	((tParameterConcretisation property:#concreteParameter)target)*-
 	((tConcreteParameterType  property:#generic)).
 
 	((tConcretisation property: #genericEntity)source)*-
 	((tParametricEntity property: #concretisations)).
 
 	((tConcretisation property: #concreteEntity)target)*-
-	((tParametricEntity property: #genericEntities)). 
+	((tParametricEntity property: #genericEntities)).
 	
 ]
 
@@ -1879,8 +1873,7 @@ FamixGenerator >> defineTraits [
 		
 
 	tParameterConcretisation  := builder newTraitNamed: #TParameterConcretisation.
-	tParametricEntity := builder newTraitNamed: #TParametricEntity
-								comment: self commentForTConcreteEntity.
+	tParametricEntity := builder newTraitNamed: #TParametricEntity.
 	tConcreteParameterType  := builder newTraitNamed: #TConcreteParameterType.
 	tGenericParameterType  := builder newTraitNamed: #TGenericParameterType.
 	

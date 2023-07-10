@@ -191,24 +191,10 @@ FamixJavaImportingContext >> importParameterType [
 ]
 
 { #category : #importing }
-FamixJavaImportingContext >> importParameterizedType [
-
-	<generated>
-	^ self importConcreteEntity: (self class fm3ClassNamed: #ParameterizedType)
-]
-
-{ #category : #importing }
 FamixJavaImportingContext >> importParametricClass [
 
 	<generated>
 	^ self importConcreteEntity: (self class fm3ClassNamed: #ParametricClass)
-]
-
-{ #category : #importing }
-FamixJavaImportingContext >> importParametricInheritance [
-
-	<generated>
-	^ self importConcreteEntity: (self class fm3ClassNamed: #ParametricInheritance)
 ]
 
 { #category : #importing }
@@ -450,24 +436,10 @@ FamixJavaImportingContext >> shouldImportParameterType [
 ]
 
 { #category : #testing }
-FamixJavaImportingContext >> shouldImportParameterizedType [
-
-	<generated>
-	^ self shouldImport: #ParameterizedType
-]
-
-{ #category : #testing }
 FamixJavaImportingContext >> shouldImportParametricClass [
 
 	<generated>
 	^ self shouldImport: #ParametricClass
-]
-
-{ #category : #testing }
-FamixJavaImportingContext >> shouldImportParametricInheritance [
-
-	<generated>
-	^ self shouldImport: #ParametricInheritance
 ]
 
 { #category : #testing }

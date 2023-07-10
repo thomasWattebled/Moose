@@ -276,24 +276,10 @@ FamixJavaTEntityCreator >> newParameterTypeNamed: aName [
 ]
 
 { #category : #'entity creation' }
-FamixJavaTEntityCreator >> newParameterizedType [
-
-	<generated>
-	^ self add: FamixJavaParameterizedType new
-]
-
-{ #category : #'entity creation' }
 FamixJavaTEntityCreator >> newParametricClass [
 
 	<generated>
 	^ self add: FamixJavaParametricClass new
-]
-
-{ #category : #'entity creation' }
-FamixJavaTEntityCreator >> newParametricInheritance [
-
-	<generated>
-	^ self add: FamixJavaParametricInheritance new
 ]
 
 { #category : #'entity creation' }
