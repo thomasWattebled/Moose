@@ -298,6 +298,18 @@ FamixGenerator >> commentForTCompilationUnit [
 ]
 
 { #category : #comments }
+FamixGenerator >> commentForTConcreteParameterType [
+
+	^ 'FamixTConcreteParameterType represents the concretePamameters of an FamixTParametricEntity. it can be a class or a ParameterType that has one FamixTParameterConcretization'
+]
+
+{ #category : #comments }
+FamixGenerator >> commentForTConcretisation [
+
+	^ ''
+]
+
+{ #category : #comments }
 FamixGenerator >> commentForTDeclaredException [
 
 	^ 'This is an exception explicitly declared as being thrown by a method.'
@@ -391,6 +403,12 @@ FamixGenerator >> commentForTFolder [
 FamixGenerator >> commentForTFunction [
 
 	^ 'FamixTFunction represents a behavioural entity in a procedural language.'
+]
+
+{ #category : #comments }
+FamixGenerator >> commentForTGenericParameterType [
+
+	^ 'FamixTGenericParameterType represents generic parameters in an FamixJavaParametricEntity. This is an FamixJavaParameterType'
 ]
 
 { #category : #comments }
@@ -545,6 +563,12 @@ int addNumbers(int a, int b) {
 ]
 
 { #category : #comments }
+FamixGenerator >> commentForTParameterConcretisation [
+
+	^ ''
+]
+
+{ #category : #comments }
 FamixGenerator >> commentForTParameterType [
 	^ 'ParameterType represents the symbolic type used in parameterizable classes. This is a FamixTType.
 
@@ -557,22 +581,16 @@ Where AClass is a ParameterizableClass. A, B and C are ParameterType of AClass.'
 ]
 
 { #category : #comments }
-FamixGenerator >> commentForTParameterizedType [
+FamixGenerator >> commentForTParametricEntity [
 
-	^ 'FamixTParameterizedType represents a type with arguments. So, it is an instantiation for the use of FamixTParameterizableClass. It can appear as a type of an attribute, a type of a local variable, a parameter of a method, a return of a method, etc.
+	^ 'FamixTParametricEntity represents a type with parameters. It can be an parametricClass, parametricMethod, parametricInterface.
 Example:
 
 ...
 public Map<String,Collection> anAttribute;
 ...
 
-Where Map<String,Collection> is the FamixTParameterizedType of anAttribute. String and Collection are arguments. Map is the parameterizableClass.'
-]
-
-{ #category : #comments }
-FamixGenerator >> commentForTParameterizedTypeUser [
-
-	^ ''
+Where Map<String,Collection> is the FamixTParametricEntity of anAttribute. String and Collection are concrete parameters. Map is the parametricClass.'
 ]
 
 { #category : #comments }
@@ -871,18 +889,6 @@ FamixGenerator >> commentForTWithMethods [
 
 { #category : #comments }
 FamixGenerator >> commentForTWithPackages [
-
-	^ ''
-]
-
-{ #category : #comments }
-FamixGenerator >> commentForTWithParameterizedTypeUsers [
-
-	^ ''
-]
-
-{ #category : #comments }
-FamixGenerator >> commentForTWithParameterizedTypes [
 
 	^ ''
 ]
@@ -1494,25 +1500,42 @@ FamixGenerator >> defineRelations [
 	*-*
 	(tParameterConcretisation property:#concretisation).
 	
-	(tGenericParameterType property:#genericEntity)
-	*-*
-	(tParametricEntity property:#genericParameters).
+	((tGenericParameterType property:#genericEntity)
+			comment: 'genericEntity of a parameter')
+			*-*
+	((tParametricEntity property:#genericParameters)
+			comment: 'list of genericParameters').
 	
-	(tConcreteParameterType  property:#concreteEntity)
-	*-*
-	(tParametricEntity property:#concreteParameters).
+	((tConcreteParameterType  property:#concreteEntity)
+			comment: 'concreteEntity of a parameter')
+			*-*
+	((tParametricEntity property:#concreteParameters)
+			comment: 'list of concreteParameters').
 	
-	((tParameterConcretisation property:#genericParameter)source)*-
-	((tGenericParameterType property:#concretisations)).
 	
-	((tParameterConcretisation property:#concreteParameter)target)*-
-	((tConcreteParameterType  property:#generic)).
+	((tParameterConcretisation property:#genericParameter)
+			comment: 'genericParameter linked to in this relationship. from-side of the association'; source)
+			*-
+	((tGenericParameterType property:#concretisations)
+			comment: 'concretisations relationships, i.e. known concretisation of this type.').
+	
+	((tParameterConcretisation property:#concreteParameter)
+			comment: 'concreteParameter linked to in this relationship. to-side of the association'; target)
+			*-
+	((tConcreteParameterType  property:#generic)
+			comment: 'generic relationships, i.e. known genericParameter of this type.').
 
-	((tConcretisation property: #genericEntity)source)*-
-	((tParametricEntity property: #concretisations)).
+	((tConcretisation property: #genericEntity)
+			comment: 'genericEntity linked to in this relationship. from-side of the association'; source)
+			*-
+	((tParametricEntity property: #concretisations)
+			comment: 'concretisations relationships, i.e. known concreteEntity of this type.').
 
-	((tConcretisation property: #concreteEntity)target)*-
-	((tParametricEntity property: #genericEntities)).
+	((tConcretisation property: #concreteEntity)
+			comment: 'concreteEntity linked to in this relationship. to-side of the association';	target)
+			*-
+	((tParametricEntity property: #genericEntities)
+			comment: 'genericEntities relationships, i.e. known genericEntity of this type.').
 	
 ]
 
@@ -1677,15 +1700,6 @@ FamixGenerator >> defineTraits [
 	tParameter := builder newTraitNamed: #TParameter.
 	tParameter comment: self commentForTParameter.
 
-	"tParameterizedType := builder newTraitNamed: #TParameterType.
-	tParameterizedType comment: self commentForTParameterType.
-
-	tParameterizedType := builder newTraitNamed: #TParameterizedType.
-	tParameterizedType comment: self commentForTParameterizedType.
-
-	tParameterizedTypeUser := builder newTraitNamed: #TParameterizedTypeUser.
-	tParameterizedTypeUser comment: self commentForTParameterizedTypeUser."
-
 	tPreprocessorDefine := builder newTraitNamed: #TPreprocessorDefine.
 	tPreprocessorDefine comment: self commentForTPreprocessorDefine.
 
@@ -1815,13 +1829,6 @@ FamixGenerator >> defineTraits [
 	tDefinedInModule := builder newTraitNamed: #TDefinedInModule.
 	tDefinedInModule comment: self commentForTDefinedInModule.
 
-
-	"tWithParameterizedTypeUsers := builder newTraitNamed: #TWithParameterizedTypeUsers.
-	tWithParameterizedTypeUsers comment: self commentForTWithParameterizedTypeUsers.
-
-	tWithParameterizedTypes := builder newTraitNamed: #TWithParameterizedTypes.
-	tWithParameterizedTypes comment: self commentForTWithParameterizedTypes."
-
 	tWithParameters := builder newTraitNamed: #TWithParameters.
 	tWithParameters comment: self commentForTWithParameters.
 
@@ -1871,14 +1878,16 @@ FamixGenerator >> defineTraits [
 		                  comment: self commentForTCanImplement.
 	tImplementation := builder newTraitNamed: #TImplementation. 
 		
-
-	tParameterConcretisation  := builder newTraitNamed: #TParameterConcretisation.
-	tParametricEntity := builder newTraitNamed: #TParametricEntity.
-	tConcreteParameterType  := builder newTraitNamed: #TConcreteParameterType.
-	tGenericParameterType  := builder newTraitNamed: #TGenericParameterType.
-	
-	tConcretisation  := builder newTraitNamed: #TConcretisation.
-
+	tParametricEntity := builder newTraitNamed: #TParametricEntity 
+								comment: self commentForTParametricEntity .
+	tConcreteParameterType  := builder newTraitNamed: #TConcreteParameterType 
+								comment: self commentForTConcreteParameterType.
+	tGenericParameterType  := builder newTraitNamed: #TGenericParameterType 
+								comment: self commentForTGenericParameterType.
+	tConcretisation  := builder newTraitNamed: #TConcretisation 
+								comment: self commentForTConcretisation.
+	tParameterConcretisation  := builder newTraitNamed: #TParameterConcretisation 
+								comment: self commentForTParameterConcretisation.
 
 
 ]
