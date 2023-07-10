@@ -14,12 +14,3 @@ FamixJavaParametricInterface class >> annotation [
 	<generated>
 	^ self
 ]
-
-{ #category : #'as yet unclassified' }
-FamixJavaParametricInterface >> allParameter [ 
-
-	|collection|
-	collection := OrderedCollection new.
-	collection addAll: self concreteParameters , self genericParameters .
-	^ collection 
-]
