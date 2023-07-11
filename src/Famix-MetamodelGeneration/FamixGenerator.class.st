@@ -125,7 +125,8 @@ Class {
 		'tParameterConcretisation',
 		'tParametricEntity',
 		'tConcreteParameterType',
-		'tGenericParameterType'
+		'tGenericParameterType',
+		'tThrowable'
 	],
 	#category : #'Famix-MetamodelGeneration'
 }
@@ -1089,6 +1090,8 @@ FamixGenerator >> defineHierarchy [
 	
 	tConcreteParameterType  --|> tType .
 	tGenericParameterType --|> tType.
+	
+	tException --|> tThrowable.
 ]
 
 { #category : #definition }
@@ -1238,7 +1241,7 @@ FamixGenerator >> defineRelations [
 	((tWithAttributes property: #attributes)
 			comment: 'List of attributes declared by this type.').
 
-	((tException property: #catchingEntities))
+	((tThrowable  property: #catchingEntities))
 		*-*
 	((tWithExceptions property: #caughtExceptions)
 			comment: 'The exceptions caught by the method').
@@ -1255,7 +1258,7 @@ FamixGenerator >> defineRelations [
 		-
 	((tWithCompilationUnits property: #compilationUnit)).
 
-	((tException property: #declaringEntities))
+	((tThrowable property: #declaringEntities))
 		*-*
 	((tWithExceptions property: #declaredExceptions)
 			comment: 'The exceptions declared by the method').
@@ -1439,7 +1442,7 @@ FamixGenerator >> defineRelations [
 		-*
 	((tTemplateUser property: #template)).
 
-	((tException property: #throwingEntities))
+	((tThrowable property: #throwingEntities))
 		*-*
 	((tWithExceptions property: #thrownExceptions)
 			comment: 'The exceptions thrown by the method').
@@ -1888,6 +1891,6 @@ FamixGenerator >> defineTraits [
 								comment: self commentForTConcretisation.
 	tParameterConcretisation  := builder newTraitNamed: #TParameterConcretisation 
 								comment: self commentForTParameterConcretisation.
-
+	tThrowable  := builder newTraitNamed: #TThrowable .
 
 ]

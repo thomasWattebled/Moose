@@ -351,7 +351,8 @@ FamixJavaGenerator >> defineHierarchy [
 	parameterConcretisation --|> #TParameterConcretisation.
 	
 	inheritance --|> #TInheritance.
-	parameterType --|> #TWithInheritances
+	parameterType --|> #TWithInheritances.
+	parameterType --|> #TThrowable.
 ]
 
 { #category : #definition }
